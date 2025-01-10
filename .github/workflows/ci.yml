@@ -9,6 +9,11 @@ jobs:
   quality-checks:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Run TypeScript type checking
-        run: npm run type-check
+        run: npm run typecheck
 
       - name: Run ESLint
         run: npm run lint
