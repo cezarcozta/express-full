@@ -8,6 +8,7 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "dev": "tsx --watch --env-file .env.dev src/index.ts",
+    "dev:debug": "tsx --inspect-brk --watch --env-file .env.dev src/index.ts",
     "dev:hml": "tsx --watch --env-file .env.hml src/index.ts",
     "dev:prd": "tsx --watch --env-file .env.prd src/index.ts",
     "start": "node dist/index.js",
@@ -20,7 +21,7 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": "22.13"
+    "node": "20.17.0"
   },
   "imports": {
     "#*": "./src/*"
@@ -39,6 +40,7 @@
   "license": "ISC",
   "description": "template express with some basics QAchecks",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.726.1",
     "express": "^4.21.2"
   },
   "devDependencies": {
