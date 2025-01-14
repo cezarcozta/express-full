@@ -1,4 +1,3 @@
-import { IAWSData, IProcessedResult } from "#interfaces/types.js";
 import {
   DeleteObjectCommand,
   DeleteObjectCommandInput,
@@ -46,9 +45,8 @@ const S3Service = {
       return error;
     }
   },
-  getObject: async (params: GetObjectCommandInput): Promise<object | S3ServiceException> => {
+  getObject: async (params: GetObjectCommandInput): Promise<unknown> => {
     try {
-      const isResult = params.Key?.includes("_result.json");
       const command = new GetObjectCommand(params);
       const response = await s3Client.send(command);
       const body = response.Body as ReadableStream;
@@ -57,7 +55,7 @@ const S3Service = {
         chunks.push(chunk);
       }
       const objectContent = Buffer.concat(chunks).toString();
-      return isResult ? (JSON.parse(objectContent) as IProcessedResult) : (JSON.parse(objectContent) as IAWSData);
+      return JSON.parse(objectContent) as unknown;
     } catch (err: unknown) {
       const error = err as S3ServiceException;
       return error;
